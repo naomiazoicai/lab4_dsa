@@ -2,6 +2,8 @@
 #include "MapIterator.h"
 #include "iostream"
 
+///constructor
+///complexity: Θ(1) worst, average and best
 Map::Map() {
     capacity = 3;
     tableSize = 0;
@@ -9,6 +11,8 @@ Map::Map() {
     table2 = new Bucket[capacity];
 }
 
+///destructor
+///complexity: Θ(1) worst, average and best
 Map::~Map() {
     delete[] table1;
     delete[] table2;
@@ -17,9 +21,10 @@ Map::~Map() {
 /// adds a pair (key,value) to the map
 ///if the key already exists in the map, then the value associated to the key is replaced by the new value and the old value is returned
 ///if the key does not exist, a new pair is added and the value null is returned
+///complexity: total: O(n), worst case Θ(n), average case Θ(1) amortized, best case: Θ(1)
 TValue Map::add(TKey c, TValue v)
 {
-
+    //check if the key already exists in the map
     if (search(c) != NULL_TVALUE)
     {
         int h1 = hashFunction1(c);
@@ -27,11 +32,13 @@ TValue Map::add(TKey c, TValue v)
         TValue old_v;
         if (table1[h1].element.first == c)
         {
+            //if the key is found in table1, update its value
             old_v = table1[h1].element.second;
             table1[h1].element.second = v;
         }
         else
         {
+            //if the key is found in table2, update its value
             old_v = table2[h2].element.second;
             table2[h2].element.second = v;
         }
@@ -44,8 +51,9 @@ TValue Map::add(TKey c, TValue v)
     TValue currentValue = v;
     while (rehashesCount < MAX_REHASHES)
     {
-        if (rehashesCount % 2 == 0)
+        if (rehashesCount % 2 == 0)     //adding in table1
         {
+            //if the slot in table1 is empty, add the new element and increment table size
             if (table1[possibleAddress].element == NULL_TELEM)
             {
                 table1[possibleAddress].element.first = currentKey;
@@ -63,7 +71,9 @@ TValue Map::add(TKey c, TValue v)
             currentValue = oldElem.second;
         }
         else
+            //adding in table2
         {
+            //if the slot in table2 is empty, add the new element and increment table size
             if (table2[possibleAddress].element == NULL_TELEM)
             {
                 table2[possibleAddress].element.first = currentKey;
@@ -92,7 +102,8 @@ TValue Map::add(TKey c, TValue v)
 
 }
 
-
+///resize hashtable method
+///complexity: total: Θ(n), worst case Θ(n), average case Θ(n), best case: Θ(n)
 void Map::resize()
 {
     int oldCapacity = capacity;
@@ -132,6 +143,7 @@ void Map::resize()
 }
 
 ///searches for the key and returns the value associated with the key if the map contains the key or null: NULL_TVALUE otherwise
+///complexity: Θ(1) worst, average and best
 TValue Map::search(TKey c) const
 {
     int hash1 = hashFunction1(c);
@@ -150,6 +162,7 @@ TValue Map::search(TKey c) const
 }
 
 ///removes a key from the map and returns the value associated with the key if the key existed ot null: NULL_TVALUE otherwise
+///complexity: Θ(1) worst, average and best
 TValue Map::remove(TKey c)
 {
     int hash1 = hashFunction1(c);
@@ -175,18 +188,21 @@ TValue Map::remove(TKey c)
 
 
 ///returns the number of pairs (key,value) from the map
+///complexity: Θ(1) worst, average and best
 int Map::size() const
 {
     return this->tableSize;
 }
 
 ///checks whether the map is empty or not
+///complexity: Θ(1) worst, average and best
 bool Map::isEmpty() const
 {
     return this-> tableSize == 0;
 }
 
 ///returns an iterator for the map
+///complexity: Θ(1) worst, average and best
 MapIterator Map::iterator() const
 {
     return MapIterator(*this);

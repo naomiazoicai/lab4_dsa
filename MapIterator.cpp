@@ -2,13 +2,16 @@
 #include "MapIterator.h"
 #include <exception>
 using namespace std;
-
+///complexity: total: O(n), worst case Θ(n), average case Θ(n) n-size of the dynamic array, best case: Θ(1)
+///complexity: Θ(1) worst, average and best
 
 MapIterator::MapIterator(const Map& d) : map(d)
 {
     first();
 }
 
+///returns the first not-NULL_TELEM element
+///complexity: total: O(n), worst case Θ(n), average case Θ(n), best case: Θ(1)
 void MapIterator::first()
 {
     currentBucketIndex = 0;
@@ -39,6 +42,8 @@ void MapIterator::first()
     }
 }
 
+///returns the next not-NULL_TELEM element
+///complexity: total: O(n), worst case Θ(n), average case Θ(n), best case: Θ(1)
 void MapIterator::next()
 {
     if (!valid())
@@ -73,6 +78,8 @@ void MapIterator::next()
     }
 }
 
+///returns the current element
+///complexity: Θ(1) worst, average and best
 TElem MapIterator::getCurrent()
 {
     if (!valid())
@@ -90,6 +97,8 @@ TElem MapIterator::getCurrent()
     }
 }
 
+///checks if a position is valid
+///complexity: Θ(1) worst, average and best
 bool MapIterator::valid() const
 {
     return 0 <= currentBucketIndex && currentBucketIndex < 2 * map.capacity;
