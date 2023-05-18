@@ -1,0 +1,13 @@
+# ninja log v5
+9	381	7060482480928958	CMakeFiles/lab4_dsa.dir/App.cpp.obj	4c964585498aa211
+2	276	7060485141117276	CMakeFiles/lab4_dsa.dir/Map.cpp.obj	20dc1bfaea26645d
+3	118	7060485009142065	CMakeFiles/lab4_dsa.dir/MapIterator.cpp.obj	ad30db49447eae8a
+19	402	7060482481142860	CMakeFiles/lab4_dsa.dir/ShortTest.cpp.obj	40231918784b4e83
+2	279	7060482870007584	CMakeFiles/lab4_dsa.dir/ExtendedTest.cpp.obj	45d3946fcf023406
+276	382	7060485142101792	lab4_dsa.exe	f18a7bd9b8652411
+36	345	7060489820185936	CMakeFiles/lab4_dsa.dir/MapIterator.cpp.obj	8ee5fb2b6db7e3f9
+4	873	7060489825373937	CMakeFiles/lab4_dsa.dir/App.cpp.obj	9c4191efb12417d5
+25	875	7060489825584330	CMakeFiles/lab4_dsa.dir/ShortTest.cpp.obj	6a1b5ea957eadafe
+11	893	7060489825818137	CMakeFiles/lab4_dsa.dir/ExtendedTest.cpp.obj	99ca33210c05b58
+19	901	7060489825898113	CMakeFiles/lab4_dsa.dir/Map.cpp.obj	7b56390e28e4c201
+901	1075	7060489827590846	lab4_dsa.exe	f18a7bd9b8652411
