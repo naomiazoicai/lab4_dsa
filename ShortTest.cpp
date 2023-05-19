@@ -41,3 +41,25 @@ void testAll() { //call each function to see if it is implemented
 }
 
 
+void testGetMapInInterval()
+{
+    Map m;
+    m.add(5, 5);
+    m.add(1, 111);
+    m.add(10, 110);
+    m.add(7, 7);
+    m.add(3, 3);
+
+
+    Map intervalMap = m.getMapInInterval(2, 7);
+    assert(intervalMap.size() == 3);
+    assert(intervalMap.search(5) == 5);
+    assert(intervalMap.search(3) == 3);
+    assert(intervalMap.search(7) == 7);
+    assert(intervalMap.search(1) == NULL_TVALUE);
+    assert(intervalMap.search(10) == NULL_TVALUE);
+
+
+}
+
+

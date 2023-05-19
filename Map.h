@@ -67,6 +67,10 @@ class Map {
 	// destructor
 	~Map();
 
+    Map(const Map& other);
+
+    Map getMapInInterval(TKey start, TKey end) const;
+
 };
 
 

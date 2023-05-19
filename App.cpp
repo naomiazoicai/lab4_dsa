@@ -11,6 +11,7 @@ using namespace std;
 int main() {
 	testAll();
     testAllExtended();
+    testGetMapInInterval();
 
 	cout << "That's all!" << endl;
 	system("pause");

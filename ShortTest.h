@@ -2,3 +2,4 @@
 
 void testAll();
 
+void testGetMapInInterval();

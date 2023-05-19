@@ -3,7 +3,7 @@
 #include "iostream"
 
 ///constructor
-///complexity: Θ(1) worst, average and best
+///complexity:Θ(n), worst case: Θ(n) , average case: Θ(n), best case: Θ(n)
 Map::Map() {
     capacity = 3;
     tableSize = 0;
@@ -24,7 +24,7 @@ Map::~Map() {
 ///complexity: total: O(n), worst case Θ(n), average case Θ(1) amortized, best case: Θ(1)
 TValue Map::add(TKey c, TValue v)
 {
-    //check if the key already exists in the map
+    //check if the key already exists in the map, update the value and return old value
     if (search(c) != NULL_TVALUE)
     {
         int h1 = hashFunction1(c);
@@ -66,7 +66,7 @@ TValue Map::add(TKey c, TValue v)
             table1[possibleAddress].element.first = currentKey;
             table1[possibleAddress].element.second = currentValue;
 
-            possibleAddress = hashFunction2(oldElem.first);
+            possibleAddress = hashFunction2(oldElem.first);     // for displacement, verifying if slot is available in table2
             currentKey = oldElem.first;
             currentValue = oldElem.second;
         }
@@ -86,7 +86,7 @@ TValue Map::add(TKey c, TValue v)
             table2[possibleAddress].element.first = currentKey;
             table2[possibleAddress].element.second = currentValue;
 
-            possibleAddress = hashFunction1(oldElem.first);
+            possibleAddress = hashFunction1(oldElem.first);         // for displacement, verifying if slot is available in table2
             currentKey = oldElem.first;
             currentValue = oldElem.second;
         }
@@ -210,3 +210,62 @@ MapIterator Map::iterator() const
 
 
 
+/// copy constructor
+/// complexity: total: Θ(n), worst case Θ(n), average case Θ(n), best case: Θ(n)
+Map::Map(const Map& other)
+{
+    capacity = other.capacity;
+    tableSize = other.tableSize;
+
+    table1 = new Bucket[capacity];
+    table2 = new Bucket[capacity];
+
+
+    for (int i = 0; i < capacity; i++)
+    {
+        table1[i].element = other.table1[i].element;
+        table2[i].element = other.table2[i].element;
+    }
+}
+
+///a method that returns another map where the keys are in a given interval
+/// complexity: total: Θ(n), worst case Θ(n), average case Θ(n), best case: Θ(n)
+Map Map::getMapInInterval(TKey start, TKey end) const
+{
+    Map intervalMap(*this); //use the copy constructor to create a new Map object
+
+    MapIterator it = intervalMap.iterator(); //use the iterator of the intervalMap
+    while (it.valid())
+    {
+        TKey currentKey = it.getCurrent().first;
+        if (currentKey < start || currentKey > end)
+        {
+            intervalMap.remove(currentKey); //remove elements not in the interval from intervalMap
+        }
+
+        it.next();
+    }
+
+    return intervalMap; //return the modified intervalMap
+}
+
+
+//preconditions:
+//the Map object on which getMapInInterval is called (*this) should be valid
+//the start and end parameters should define a valid interval, start<=end
+
+//postconditions:
+//the method returns a new Map object intervalMap that contains only the key-value pairs from the original map in the specified interval
+//the original Map object remains unchanged
+
+//subalgorithm getMapInInterval(start, end) is:
+//      init Map intervalMap(*this);
+//      MapIterator it = intervalMap.iterator();
+// while it is valid execute:
+//      TKey currentKey = it.getCurrent().first
+//      if currentKey<start or currentKey>end
+//          intervalMap.remove(currentKey)
+//      end-if
+//      it->it.next
+// end-while
+//getMapInInterval<-intervalMap
